@@ -38,6 +38,11 @@ export const links = [
     href: '/nft',
   },
   {
+    label: 'Roadmap',
+    icon: 'RoadmapIcon',
+    href: '/roadmap',
+  },
+  {
     label: 'Github',
     icon: 'GithubIcon',
     href: 'https://github.com/lysfinance-dev',

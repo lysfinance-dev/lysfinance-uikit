@@ -44,7 +44,7 @@ const Accordion: React.FC<Props> = ({
     if (isPushed) {
       setIsOpen((prevState) => !prevState);
     } else {
-      pushNav(true);
+      pushNav?.(true);
       setIsOpen(true);
     }
   };
