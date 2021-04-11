@@ -1,17 +1,18 @@
 {
-  "name": "@blzd-dev/uikit",
-  "version": "0.13.25",
-  "description": "Set of UI components for Blizzard projects",
+  "name": "@lysfinance-dev/uikit",
+  "version": "0.16.0",
+  "description": "Set of UI components for LysFinance projects",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "private": false,
   "files": [
     "dist"
   ],
-  "repository": "https://github.com/blzd-dev/blzd-uikit",
+  "repository": "https://github.com/lysfinance-dev/lysfinance-uikit",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf ./dist && rollup -c && tsc -d --emitDeclarationOnly --declarationDir dist",
+    "build": "shx rm -rf ./dist && rollup -c && tsc -d --emitDeclarationOnly --declarationDir dist",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
     "storybook": "start-storybook -p 6006",
@@ -19,16 +20,9 @@
     "test": "jest",
     "release": "yarn build && np"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn format",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
-  "jest": {
-    "setupFilesAfterEnv": [
-      "<rootDir>/src/setupTests.js"
-    ]
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -63,6 +57,7 @@
     "react-is": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "rollup": "^2.39.0",
+    "shx": "^0.3.3",
     "styled-components": "^5.2.0",
     "themeprovider-storybook": "^1.6.4",
     "ts-jest": "^26.5.1",

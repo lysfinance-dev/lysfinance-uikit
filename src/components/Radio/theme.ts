@@ -6,5 +6,5 @@ export const light: RadioTheme = {
 };
 
 export const dark: RadioTheme = {
-  handleBackground: darkColors.card,
+  handleBackground: darkColors.contrast,
 };

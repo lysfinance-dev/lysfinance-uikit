@@ -15,7 +15,7 @@ export interface Profile {
 
 export interface PushedProps {
   isPushed: boolean;
-  pushNav: (isPushed: boolean) => void;
+  pushNav?: (isPushed: boolean) => void;
 }
 
 export interface NavTheme {

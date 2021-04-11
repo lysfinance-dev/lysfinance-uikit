@@ -1,29 +1,27 @@
 import React from "react";
 import styled from "styled-components";
-import { CogIcon } from "../../../components/Svg";
+import { CogIcon, SvgProps } from "../../../components/Svg";
 import IconButton from "../../../components/Button/IconButton";
+import * as IconModule from "../icons";
 import { MENU_ENTRY_HEIGHT } from "../config";
 import { PanelProps, PushedProps } from "../types";
-import CakePrice from "./CakePrice";
-import ThemeSwitcher from "./ThemeSwitcher";
 import SocialLinks from "./SocialLinks";
 import LangSelector from "./LangSelector";
+import { LinkLabel, MenuEntry } from "./MenuEntry";
+import MenuLink from "./MenuLink";
 
-interface Props extends PanelProps, PushedProps {}
+interface Props extends PanelProps, PushedProps {
+  isMobile: boolean;
+}
 
-const Container = styled.div`
+const Icons = (IconModule as unknown) as { [key: string]: React.FC<SvgProps> };
+
+const Container = styled.div<PushedProps>`
   flex: none;
   padding: 8px 4px;
   background-color: ${({ theme }) => theme.nav.background};
   border-top: solid 2px rgba(133, 133, 133, 0.1);
-`;
-
-const SettingsEntry = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: ${MENU_ENTRY_HEIGHT}px;
-  padding: 0 8px;
+  padding: ${({ isPushed }) => isPushed ? "16px" : "8px 4px"};
 `;
 
 const SocialEntry = styled.div`
@@ -37,17 +35,19 @@ const SocialEntry = styled.div`
 const PanelFooter: React.FC<Props> = ({
   isPushed,
   pushNav,
-  toggleTheme,
-  isDark,
-  cakePriceUsd,
   currentLang,
   langs,
   setLang,
+  links,
+  isMobile
 }) => {
+  // Close the menu when a user clicks a link on mobile
+  const handleClick = isMobile ? () => pushNav?.(false) : undefined;
+
   if (!isPushed) {
     return (
-      <Container>
-        <IconButton variant="text" onClick={() => pushNav(true)}>
+      <Container isPushed={false}>
+        <IconButton variant="text" onClick={() => pushNav?.(true)}>
           <CogIcon />
         </IconButton>
       </Container>
@@ -55,15 +55,29 @@ const PanelFooter: React.FC<Props> = ({
   }
 
   return (
-    <Container>
+    <Container isPushed={isPushed}>
+      {links.map((entry) => {
+        const Icon = Icons[entry.icon];
+        const iconElement = <Icon width="24px" mr="8px" />;
+        const calloutClass = entry.calloutClass ? entry.calloutClass : undefined;
+
+        if (!entry.items && entry.external) {
+          return (
+            <MenuEntry isPushed={isPushed} key={entry.label} isActive={entry.href === location.pathname} className={calloutClass}>
+              <MenuLink href={entry.href} target={entry.external ? "_blank" : "_self"} onClick={handleClick}>
+                {iconElement}
+                <LinkLabel isPushed={isPushed} isActive={entry.href === location.pathname}>{entry.label}</LinkLabel>
+              </MenuLink>
+            </MenuEntry>
+          );
+        }
+
+        return (<></>)
+      })}
       <SocialEntry>
-        <CakePrice cakePriceUsd={cakePriceUsd} />
+        <LangSelector currentLang={currentLang} langs={langs} setLang={setLang} />
         <SocialLinks />
       </SocialEntry>
-      <SettingsEntry>
-        <ThemeSwitcher isDark={isDark} toggleTheme={toggleTheme} />
-        <LangSelector currentLang={currentLang} langs={langs} setLang={setLang} />
-      </SettingsEntry>
     </Container>
   );
 };

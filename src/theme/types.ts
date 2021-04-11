@@ -21,6 +21,7 @@ export type Radii = {
 export type Shadows = {
   level1: string;
   active: string;
+  secondary: string;
   success: string;
   warning: string;
   focus: string;
@@ -45,6 +46,7 @@ export type Colors = {
   input: string;
   inputSecondary: string;
   background: string;
+  menuBackground: string;
   backgroundDisabled: string;
   text: string;
   textDisabled: string;

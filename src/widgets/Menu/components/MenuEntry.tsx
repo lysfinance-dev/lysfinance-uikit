@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from "react";
 import styled, { keyframes, DefaultTheme } from "styled-components";
 import { MENU_ENTRY_HEIGHT } from "../config";
@@ -5,6 +6,7 @@ import { MENU_ENTRY_HEIGHT } from "../config";
 export interface Props {
   secondary?: boolean;
   isActive?: boolean;
+  isPushed?: boolean;
   theme: DefaultTheme;
 }
 
@@ -18,8 +20,9 @@ const rainbowAnimation = keyframes`
   }
 `;
 
-const LinkLabel = styled.div<{ isPushed: boolean }>`
-  color: ${({ isPushed, theme }) => (isPushed ? theme.colors.textSubtle : "transparent")};
+const LinkLabel = styled.div<{ isPushed: boolean, isActive: boolean }>`
+  opacity: ${({isActive}) => isActive ? "1.0" : "0.5"};
+  color: ${({ isActive ,isPushed, theme }) => (isPushed ? (isActive ? theme.colors.textSubtle : theme.colors.contrast) : "transparent")};
   transition: color 0.4s;
   flex-grow: 1;
 `;
@@ -31,9 +34,10 @@ const MenuEntry = styled.div<Props>`
   height: ${MENU_ENTRY_HEIGHT}px;
   padding: ${({ secondary }) => (secondary ? "0 32px" : "0 16px")};
   font-size: ${({ secondary }) => (secondary ? "14px" : "16px")};
+  border-radius: ${({secondary, isPushed}) => (secondary || !isPushed ? "0px" : "8px") };
   background-color: ${({ secondary, theme }) => (secondary ? theme.colors.background : "transparent")};
-  color: ${({ theme }) => theme.colors.textSubtle};
-  box-shadow: ${({ isActive, theme }) => (isActive ? `inset 4px 0px 0px ${theme.colors.primary}` : "none")};
+  color: ${({ isActive, theme }) => (isActive ? theme.colors.textSubtle : `${theme.colors.contrast}20`)};
+  transition: all 0.3s ease-in-out;
 
   a {
     display: flex;
@@ -43,11 +47,13 @@ const MenuEntry = styled.div<Props>`
   }
 
   svg {
-    fill: ${({ theme }) => theme.colors.textSubtle};
+    transition: all 0.3s;
+    fill: ${({ theme, isActive }) => isActive ? theme.colors.textSubtle : `${theme.colors.contrast}20`};
   }
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.tertiary};
+    box-shadow: ${({ theme, secondary }) => secondary ? "none" : theme.shadows.active};
   }
 
   // Safari fix

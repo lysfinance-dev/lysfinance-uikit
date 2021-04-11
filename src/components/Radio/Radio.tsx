@@ -22,7 +22,7 @@ const getCheckedScale = ({ scale }: RadioProps) => {
   }
 };
 
-const Radio = styled.input.attrs({ type: "radio" })<RadioProps>`
+const Radio = styled.input.attrs({ type: "radio" }) <RadioProps>`
   appearance: none;
   overflow: hidden;
   cursor: pointer;
@@ -48,16 +48,16 @@ const Radio = styled.input.attrs({ type: "radio" })<RadioProps>`
   }
 
   &:hover:not(:disabled):not(:checked) {
-    box-shadow: ${({ theme }) => theme.shadows.focus};
+    box-shadow: ${({ theme }) => theme.shadows.secondary};
   }
 
   &:focus {
     outline: none;
-    box-shadow: ${({ theme }) => theme.shadows.focus};
+    box-shadow: ${({ theme }) => theme.shadows.secondary};
   }
 
   &:checked {
-    background-color: ${({ theme }) => theme.colors.success};
+    background-color: ${({ theme }) => theme.colors.secondary};
     &:after {
       background-color: ${({ theme }) => theme.radio.handleBackground};
     }
@@ -67,6 +67,7 @@ const Radio = styled.input.attrs({ type: "radio" })<RadioProps>`
     cursor: default;
     opacity: 0.6;
   }
+  
   ${space}
 `;
 

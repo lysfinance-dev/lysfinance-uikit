@@ -4,8 +4,8 @@ import { tags, sizes, HeadingProps } from "./types";
 
 const style = {
   [sizes.MD]: {
-    fontSize: "20px",
-    fontSizeLg: "20px",
+    fontSize: "16px",
+    fontSizeLg: "16px",
   },
   [sizes.LG]: {
     fontSize: "24px",

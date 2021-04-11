@@ -14,22 +14,23 @@ interface Props extends PanelProps, PushedProps {
 
 const Icons = (IconModule as unknown) as { [key: string]: React.FC<SvgProps> };
 
-const Container = styled.div`
+const Container = styled.div<PushedProps>`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
   height: 100%;
+  padding: ${({ isPushed }) => isPushed ? "16px": "16px 0px"};
 `;
 
 const PanelBody: React.FC<Props> = ({ isPushed, pushNav, isMobile, links }) => {
   const location = useLocation();
 
   // Close the menu when a user clicks a link on mobile
-  const handleClick = isMobile ? () => pushNav(false) : undefined;
+  const handleClick = isMobile ? () => pushNav?.(false) : undefined;
 
   return (
-    <Container>
+    <Container isPushed={isPushed}>
       {links.map((entry) => {
         const Icon = Icons[entry.icon];
         const iconElement = <Icon width="24px" mr="8px" />;
@@ -51,7 +52,7 @@ const PanelBody: React.FC<Props> = ({ isPushed, pushNav, isMobile, links }) => {
             >
               {isPushed &&
                 entry.items.map((item) => (
-                  <MenuEntry key={item.href} secondary isActive={item.href === location.pathname} onClick={handleClick}>
+                  <MenuEntry isPushed={isPushed} key={item.href} secondary isActive={item.href === location.pathname} onClick={handleClick}>
                     <MenuLink href={item.href} target={item.external ? "_blank" : "_self"}>
                       {item.label}
                     </MenuLink>
@@ -60,14 +61,18 @@ const PanelBody: React.FC<Props> = ({ isPushed, pushNav, isMobile, links }) => {
             </Accordion>
           );
         }
-        return (
-          <MenuEntry key={entry.label} isActive={entry.href === location.pathname} className={calloutClass}>
-            <MenuLink href={entry.href} target={entry.external ? "_blank" : "_self"} onClick={handleClick}>
-              {iconElement}
-              <LinkLabel isPushed={isPushed}>{entry.label}</LinkLabel>
-            </MenuLink>
-          </MenuEntry>
-        );
+        if (!entry.external) {
+          return (
+            <MenuEntry isPushed={isPushed} key={entry.label} isActive={entry.href === location.pathname} className={calloutClass}>
+              <MenuLink href={entry.href} target={entry.external ? "_blank" : "_self"} onClick={handleClick}>
+                {iconElement}
+                <LinkLabel isPushed={isPushed} isActive={entry.href === location.pathname}>{entry.label}</LinkLabel>
+              </MenuLink>
+            </MenuEntry>
+          );
+        }
+
+        return (<></>)
       })}
     </Container>
   );
