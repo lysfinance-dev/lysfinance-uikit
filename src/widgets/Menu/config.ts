@@ -30,6 +30,12 @@ export const links = [
     label: 'Lys Garden',
     icon: 'PoolIcon',
     href: '/pools',
+    spin: true,
+  },
+  {
+    label: 'NFT Market',
+    icon: 'NftIcon',
+    href: '/nft',
   },
   {
     label: 'Github',

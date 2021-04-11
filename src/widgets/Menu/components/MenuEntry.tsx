@@ -8,6 +8,7 @@ export interface Props {
   isActive?: boolean;
   isPushed?: boolean;
   theme: DefaultTheme;
+  spin?: boolean;
 }
 
 const rainbowAnimation = keyframes`

@@ -31,6 +31,7 @@ export interface MenuSubEntry {
 }
 
 export interface MenuEntry {
+  spin: boolean | undefined;
   label: string;
   icon: string;
   items?: MenuSubEntry[];
