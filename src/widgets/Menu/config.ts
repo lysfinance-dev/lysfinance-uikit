@@ -1,7 +1,20 @@
 export const links = [
   {
+    label: 'Menu',
+    icon: 'HomeIcon'
+  },
+  {
     label: 'Home',
     icon: 'HomeIcon',
+    href: '/',
+  },
+  {
+    label: 'Trading',
+    icon: 'HomeIcon'
+  },
+  {
+    label: 'Lys Market',
+    icon: 'TradeIcon',
     href: '/',
   },
   {
@@ -16,10 +29,14 @@ export const links = [
       {
         label: 'Liquidity',
         href:
-          'https://exchange.pancakeswap.finance/#/add/BNB/0x57067A6BD75c0E95a6A5f158455926e43E79BeB0',
+        'https://exchange.pancakeswap.finance/#/add/BNB/0x57067A6BD75c0E95a6A5f158455926e43E79BeB0',
         external: true,
       },
-    ],
+    ]
+  },
+  {
+    label: 'Yield',
+    icon: 'HomeIcon'
   },
   {
     label: 'Farms',
@@ -31,6 +48,10 @@ export const links = [
     icon: 'PoolIcon',
     href: '/pools',
     spin: true,
+  },
+  {
+    label: 'Miscs',
+    icon: 'HomeIcon',
   },
   {
     label: 'NFT Market',

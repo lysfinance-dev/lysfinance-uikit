@@ -7,6 +7,7 @@ import Accordion from "./Accordion";
 import { MenuEntry, LinkLabel } from "./MenuEntry";
 import MenuLink from "./MenuLink";
 import { PanelProps, PushedProps } from "../types";
+import { Text } from "../../../components/Text";
 
 interface Props extends PanelProps, PushedProps {
   isMobile: boolean;
@@ -20,7 +21,7 @@ const Container = styled.div<PushedProps>`
   overflow-y: auto;
   overflow-x: hidden;
   height: 100%;
-  padding: ${({ isPushed }) => isPushed ? "16px": "16px 0px"};
+  padding: ${({ isPushed }) => isPushed ? "16px" : "16px 0px"};
 `;
 
 const PanelBody: React.FC<Props> = ({ isPushed, pushNav, isMobile, links }) => {
@@ -31,6 +32,7 @@ const PanelBody: React.FC<Props> = ({ isPushed, pushNav, isMobile, links }) => {
 
   return (
     <Container isPushed={isPushed}>
+
       {links.map((entry) => {
         const Icon = Icons[entry.icon];
         const iconElement = <Icon spin={entry.spin} width="24px" mr="8px" />;
@@ -61,6 +63,18 @@ const PanelBody: React.FC<Props> = ({ isPushed, pushNav, isMobile, links }) => {
             </Accordion>
           );
         }
+
+        if (!entry.href) {
+          return (
+            isPushed ? (
+              <>
+                <hr />
+                <Text as="p">{entry.label}</Text>
+              </>
+            ) : <hr />
+          );
+        }
+
         if (!entry.external) {
           return (
             <MenuEntry isPushed={isPushed} key={entry.label} isActive={entry.href === location.pathname} className={calloutClass}>

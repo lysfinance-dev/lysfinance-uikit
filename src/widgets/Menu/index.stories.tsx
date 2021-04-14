@@ -44,7 +44,7 @@ const useProps = () => {
         langs,
         setLang: noop,
         currentLang: "EN",
-        cakePriceUsd: 0.023158668932877668,
+        cakePriceUsd: Math.round(1 + Math.random() * 20),
         links,
         profile: null,
       });
