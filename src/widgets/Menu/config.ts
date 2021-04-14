@@ -5,8 +5,8 @@ export const links = [
     href: '/',
   },
   {
-    label: 'Trade',
-    icon: 'TradeIcon',
+    label: 'Swap',
+    icon: 'SwapIcon',
     items: [
       {
         label: 'Exchange',
