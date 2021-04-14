@@ -13,7 +13,7 @@ export const links = [
     icon: 'HomeIcon'
   },
   {
-    label: 'Lys Market',
+    label: 'Lys Markets',
     icon: 'TradeIcon',
     href: '/',
   },
