@@ -54,6 +54,11 @@ export const links = [
     icon: 'HomeIcon',
   },
   {
+    label: 'Lottery',
+    icon: 'LotteryIcon',
+    href: '/lottery',
+  },
+  {
     label: 'NFT Market',
     icon: 'NftIcon',
     href: '/nft',
